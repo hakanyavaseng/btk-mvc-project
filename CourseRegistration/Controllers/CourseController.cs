@@ -10,6 +10,12 @@ namespace CourseRegistration.Controllers
             return View();
         }
 
+        [Route("Apply")]
+        public IActionResult Apply() 
+        {
+            return View();
+        }
+
 
        
     }
