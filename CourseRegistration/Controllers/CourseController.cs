@@ -1,8 +1,8 @@
+using CourseRegistration.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CourseRegistration.Controllers
 {
-    [Route("[controller]")]
     public class CourseController : Controller
     {
         public IActionResult Index() 
@@ -10,13 +10,16 @@ namespace CourseRegistration.Controllers
             return View();
         }
 
-        [Route("Apply")]
         public IActionResult Apply() 
         {
             return View();
         }
 
-
-       
+        [HttpPost]
+        [ValidateAntiForgeryToken] // Prevents CSRF attacks. 
+        public IActionResult Apply([FromForm] Candidate candidate) 
+        {
+            return View(candidate);
+        }
     }
 }
