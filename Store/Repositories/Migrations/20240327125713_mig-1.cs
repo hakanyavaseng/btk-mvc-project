@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace StoreApp.Migrations
+namespace Repositories.Migrations
 {
     public partial class mig1 : Migration
     {
@@ -21,6 +21,18 @@ namespace StoreApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, "Product 1", 100m },
+                    { 2, "Product 2", 200m },
+                    { 3, "Product 3", 300m },
+                    { 4, "Product 4", 400m },
+                    { 5, "Product 5", 500m }
                 });
         }
 
