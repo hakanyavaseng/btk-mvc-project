@@ -1,20 +1,8 @@
-@model List<StoreApp.Models.Product>
+@model List<Product>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<div class="row my-3">
     @foreach (var product in Model)
     {
-        <h3>@product.Name</h3>
-        <p>@product.Price</p>
-        <p>
-            <a href="get/@product.Id">Get Details</a>
-        </p>
+        <partial name="_ProductCard" model="product" />
     }
-</body>
-</html>
+</div>

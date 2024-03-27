@@ -12,9 +12,11 @@ builder.Services.AddDbContext<RepositoryContext>(opt =>
 
 var app = builder.Build();
 
-app.UseHttpsRedirection();
+app.UseStaticFiles(); // Using wwwroot folder for static files
 
-app.UseRouting();
+app.UseHttpsRedirection(); 
+
+app.UseRouting(); 
 
 app.MapControllerRoute(
     name: "default",
