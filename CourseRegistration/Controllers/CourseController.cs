@@ -6,8 +6,9 @@ namespace CourseRegistration.Controllers
     public class CourseController : Controller
     {
         public IActionResult Index()
-        {
-            return View();
+        {           
+            var candidates = Repository.Applications;
+            return View(candidates);
         }
 
         public IActionResult Apply()
@@ -29,11 +30,5 @@ namespace CourseRegistration.Controllers
             return View(candidate);
         }
 
-        [HttpGet]
-        public IActionResult Applications()
-        {
-            return Ok(Repository.Applications);
-
-        }
     }
 }
