@@ -14,8 +14,14 @@ namespace StoreApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-           var model = await context.Products.ToListAsync();
-           return View(model);
+            var model = await context.Products.ToListAsync();
+            return View(model);
+        }
+
+        public async Task<IActionResult> Get(int id)
+        {
+            Product? product =  await context.Products.FindAsync(id);
+            return View(product);
         }
 
     }
