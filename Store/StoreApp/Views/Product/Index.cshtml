@@ -1,12 +1,8 @@
 
-@model List<StoreApp.Models.Product>
+@model List<Product>
 
 
 @foreach (var product in Model)
 {
-    <h3>@product.Name</h3>
-    <p>@product.Price</p>
-    <p>
-        <a href="Product/Get/@product.Id">Get Details</a>
-    </p>
+    <partial name="_ProductCard" model="product" />
 }
