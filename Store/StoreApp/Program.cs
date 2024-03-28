@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Repositories;
+using Repositories.Concretes;
+using Repositories.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,9 @@ builder.Services.AddDbContext<RepositoryContext>(opt =>
 {
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), b=> b.MigrationsAssembly("StoreApp"));
 });
+
+builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
 
