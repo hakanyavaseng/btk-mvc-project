@@ -23,7 +23,8 @@ namespace StoreApp.Controllers
 
         public async Task<IActionResult> Get(int id)
         {
-            throw new NotImplementedException();
+            var product = await _manager.Product.GetOneProduct(id, false);
+            return View(product);
         }
 
     }

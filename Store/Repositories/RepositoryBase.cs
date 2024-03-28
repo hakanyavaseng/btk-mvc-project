@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
 
@@ -16,6 +17,12 @@ namespace Repositories
         public IQueryable<T> FindAll(bool trackChanges)
         {
             return trackChanges ? Table : Table.AsNoTracking();
+        }
+
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges)
+        {
+            return trackChanges ? Table.Where(expression) : Table.Where(expression).AsNoTracking();
+          
         }
     }
 
