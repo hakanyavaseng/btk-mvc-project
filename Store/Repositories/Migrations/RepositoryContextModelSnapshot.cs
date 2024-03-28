@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using StoreApp.Models;
+using Repositories;
 
 #nullable disable
 
-namespace StoreApp.Migrations
+namespace Repositories.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
     partial class RepositoryContextModelSnapshot : ModelSnapshot
@@ -21,7 +21,7 @@ namespace StoreApp.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("StoreApp.Models.Product", b =>
+            modelBuilder.Entity("Entities.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,10 +32,43 @@ namespace StoreApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Computer"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Books"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
 
@@ -43,33 +76,49 @@ namespace StoreApp.Migrations
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Name = "Product 1",
                             Price = 100m
                         },
                         new
                         {
                             Id = 2,
+                            CategoryId = 2,
                             Name = "Product 2",
                             Price = 200m
                         },
                         new
                         {
                             Id = 3,
+                            CategoryId = 1,
                             Name = "Product 3",
                             Price = 300m
                         },
                         new
                         {
                             Id = 4,
+                            CategoryId = 2,
                             Name = "Product 4",
                             Price = 400m
                         },
                         new
                         {
                             Id = 5,
+                            CategoryId = 1,
                             Name = "Product 5",
                             Price = 500m
                         });
+                });
+
+            modelBuilder.Entity("Entities.Models.Product", b =>
+                {
+                    b.HasOne("Entities.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }
