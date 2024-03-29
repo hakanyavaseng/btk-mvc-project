@@ -2,21 +2,22 @@ using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
+using Services.Contracts;
 
 namespace StoreApp.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly IRepositoryManager repositoryManager;
+        private readonly IServiceManager serviceManager;
 
-        public CategoryController(IRepositoryManager repositoryManager)
+        public CategoryController(IServiceManager serviceManager)
         {
-            this.repositoryManager = repositoryManager;
+            this.serviceManager = serviceManager;
         }
 
         public async Task<IActionResult> GetCategories()
         {
-            return View("Index",await repositoryManager.Category.FindAll(false).ToListAsync());
+            return View("Index",await serviceManager.CategoryService.GetAllCategories(false));
         }
 
       
