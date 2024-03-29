@@ -3,11 +3,11 @@ using Services.Contracts;
 
 namespace StoreApp.Components 
 {
-    public class ProductSummary : ViewComponent 
+    public class ProductSummaryViewComponent : ViewComponent 
     {  
         private readonly IServiceManager serviceManager;
 
-        public ProductSummary(IServiceManager serviceManager)
+        public ProductSummaryViewComponent(IServiceManager serviceManager)
         {
             this.serviceManager = serviceManager;
         }
