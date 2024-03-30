@@ -25,5 +25,8 @@ namespace Services.Concretes
                 throw new Exception("Product not found");
             return product;
         }
+
+        public Task<int> GetProductCount() => repositoryManager.Product.GetCount(p => p.Id > 0);
+       
     }
 }

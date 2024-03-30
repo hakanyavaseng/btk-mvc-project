@@ -24,6 +24,11 @@ namespace Repositories
             return trackChanges ? Table.Where(expression) : Table.Where(expression).AsNoTracking();
           
         }
+
+        public async Task<int> GetCount(Expression<Func<T, bool>> expression)
+        {
+            return await Table.Where(expression).CountAsync();
+        }
     }
 
 }
