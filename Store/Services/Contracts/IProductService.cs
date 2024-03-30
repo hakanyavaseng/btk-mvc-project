@@ -7,6 +7,7 @@ namespace Services.Contracts
         Task<IEnumerable<Product>> GetAllProducts(bool trackChanges);
         Task<Product?> GetOneProduct(int productId, bool trackChanges);
         Task<int> GetProductCount();
+        Task CreateProduct(Product product);
     }
 
 }

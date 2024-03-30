@@ -13,6 +13,13 @@ namespace Services.Concretes
         {
             this.repositoryManager = repositoryManager;
         }
+
+        public Task CreateProduct(Product product)
+        {
+            repositoryManager.Product.CreateProduct(product);
+            return repositoryManager.SaveAsync();
+        }
+
         public async Task<IEnumerable<Product>> GetAllProducts(bool trackChanges)
         {
             return await repositoryManager.Product.GetAllProducts(trackChanges).ToListAsync();

@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Repositories.Contracts;
 
 namespace Repositories
@@ -28,6 +29,11 @@ namespace Repositories
         public async Task<int> GetCount(Expression<Func<T, bool>> expression)
         {
             return await Table.Where(expression).CountAsync();
+        }
+
+        public async Task CreateAsync(T entity)
+        {
+            await _repositoryContext.AddAsync(entity);
         }
     }
 

@@ -9,6 +9,8 @@ namespace Repositories.Concretes
         public ProductRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
         }
+
+        public Task CreateProduct(Product product) => CreateAsync(product);
         public IQueryable<Product> GetAllProducts(bool trackChanges) => FindAll(trackChanges);
 
         public async Task<Product?> GetOneProduct(int id, bool trackChanges) 
