@@ -39,11 +39,11 @@ app.UseEndpoints(endpoint =>
    endpoint.MapAreaControllerRoute(
         name: "Admin",
         areaName: "Admin",
-        pattern: "Admin/{controller=Home}/{action=Index}/{id?}"
+        pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}"
     );
     endpoint.MapControllerRoute(
          name: "default",
-         pattern: "{controller=Dashboard}/{action=Index}/{id?}"
+         pattern: "{controller=Home}/{action=Index}/{id?}"
     );
 
 });
