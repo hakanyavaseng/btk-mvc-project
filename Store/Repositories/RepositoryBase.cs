@@ -47,8 +47,10 @@ namespace Repositories
 
         }
 
-     
-      
+        public async Task UpdateAsync(T entity)
+        {
+            await Task.Run(() => _repositoryContext.Update(entity));
+        }
     }
 
 }
