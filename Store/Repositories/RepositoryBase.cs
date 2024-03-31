@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Repositories.Contracts;
 
 namespace Repositories
@@ -29,6 +30,25 @@ namespace Repositories
         {
             return await Table.Where(expression).CountAsync();
         }
+
+        public async Task CreateAsync(T entity)
+        {
+            await _repositoryContext.AddAsync(entity);
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            T? entity = await Table.FindAsync(id);
+
+            if(entity is null)
+             throw new ArgumentNullException(nameof(entity));
+            else
+             await Task.Run(() => _repositoryContext.Remove(entity)); 
+
+        }
+
+     
+      
     }
 
 }

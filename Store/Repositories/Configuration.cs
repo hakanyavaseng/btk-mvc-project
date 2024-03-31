@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
 namespace Repositories
 {
-   static class Configuration
+    static class Configuration
 	{
 		public static string ConnectionString
 		{

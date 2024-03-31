@@ -9,9 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<RepositoryContext>(opt => 
+builder.Services.AddDbContext<RepositoryContext>(opt =>
 {
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), b=> b.MigrationsAssembly("StoreApp"));
+    opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("StoreApp"));
 });
 
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
@@ -27,13 +27,25 @@ var app = builder.Build();
 
 app.UseStaticFiles(); // Using wwwroot folder for static files
 
-app.UseHttpsRedirection(); 
+app.UseHttpsRedirection();
 
-app.UseRouting(); 
+app.UseRouting();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"
-);
+
+
+app.UseEndpoints(endpoint =>
+{
+
+   endpoint.MapAreaControllerRoute(
+        name: "Admin",
+        areaName: "Admin",
+        pattern: "Admin/{controller=Dashboard}/{action=Index}/{id?}"
+    );
+    endpoint.MapControllerRoute(
+         name: "default",
+         pattern: "{controller=Home}/{action=Index}/{id?}"
+    );
+
+});
 
 app.Run();
