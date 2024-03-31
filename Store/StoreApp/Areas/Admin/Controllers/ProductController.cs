@@ -1,5 +1,6 @@
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Services.Contracts;
 
 namespace StoreApp.Areas.Admin.Controllers
@@ -21,10 +22,11 @@ namespace StoreApp.Areas.Admin.Controllers
         }
 
 
-
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+           ViewBag.Categories = new SelectList(await _manager.CategoryService.GetAllCategories(false), nameof(Category.Id), nameof(Category.Name), "1");
+           return View();
+            
         }
 
         [HttpPost]
