@@ -20,20 +20,41 @@ namespace Services.Concretes
             return repositoryManager.SaveAsync();
         }
 
+        public async Task Delete(int id)
+        {
+            await repositoryManager.Product.DeleteAsync(id);
+            await repositoryManager.SaveAsync();
+        }
+
         public async Task<IEnumerable<Product>> GetAllProducts(bool trackChanges)
         {
-            return await repositoryManager.Product.GetAllProducts(trackChanges).ToListAsync();
+            return await repositoryManager.Product.GetAllProducts(trackChanges)
+            .OrderBy(p => p.Id)
+            .ToListAsync();
         }
 
         public async Task<Product?> GetOneProduct(int productId, bool trackChanges)
         {
             var product = await repositoryManager.Product.GetOneProduct(productId, trackChanges);
-            if(product is null)
+            if (product is null)
                 throw new Exception("Product not found");
             return product;
         }
 
         public Task<int> GetProductCount() => repositoryManager.Product.GetCount(p => p.Id > 0);
-       
+
+        public async Task UpdateProduct(Product product)
+        {
+            product.CategoryId = 1;
+            var productToUpdate = await repositoryManager.Product.GetOneProduct(product.Id, true);
+            if (productToUpdate is null)
+                throw new Exception("Product not found");
+            productToUpdate.Name = product.Name;
+            productToUpdate.Price = product.Price;
+
+            await repositoryManager.SaveAsync();
+
+
+        }
     }
 }

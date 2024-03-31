@@ -17,5 +17,7 @@ namespace Repositories.Concretes
         {
             return await FindByCondition(p => p.Id == id, trackChanges).FirstOrDefaultAsync();
         }
+
+       
     }
 }

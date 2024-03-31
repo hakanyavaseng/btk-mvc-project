@@ -32,9 +32,15 @@
                     <td>@item.Price</td>
                     <td></td>
                     <td>
-                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        <a class="btn btn-warning" asp-action="Update" asp-route-id="@item.Id">
+                            <i class="fa fa-edit"></i>Edit</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="fa fa-trash"></i>
+                            Delete
+                        </a>
+
+                        <a class="btn btn-info" target="_blank" asp-area="" asp-controller="Product" asp-action="Get" asp-route-id="@item.Id">
+                            <i class="fa fa-search"></i>Web</a>
                     </td>
                 </tr>
             }

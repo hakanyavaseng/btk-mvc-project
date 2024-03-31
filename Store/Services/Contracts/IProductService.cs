@@ -8,6 +8,8 @@ namespace Services.Contracts
         Task<Product?> GetOneProduct(int productId, bool trackChanges);
         Task<int> GetProductCount();
         Task CreateProduct(Product product);
+        Task UpdateProduct(Product product);
+        Task Delete(int id);
     }
 
 }

@@ -1,12 +1,14 @@
 @model Product
 
 <div class="text-center">
-    <div class="display-6">Create Product</div>
+    <div class="display-6">Update Product</div>
 </div>
 
-<form method="post" asp-area="Admin" asp-controller="Product" asp-action="Create">
+<form method="post" asp-area="Admin" asp-controller="Product" asp-action="Update">
 
     <div class="text-danger" asp-validation-summary="All"></div>
+
+    <input type="hidden" asp-for="Id" />
     <div class="form-group my-3">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" placeholder="Product Name" />

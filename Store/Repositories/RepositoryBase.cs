@@ -35,6 +35,20 @@ namespace Repositories
         {
             await _repositoryContext.AddAsync(entity);
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            T? entity = await Table.FindAsync(id);
+
+            if(entity is null)
+             throw new ArgumentNullException(nameof(entity));
+            else
+             await Task.Run(() => _repositoryContext.Remove(entity)); 
+
+        }
+
+     
+      
     }
 
 }
