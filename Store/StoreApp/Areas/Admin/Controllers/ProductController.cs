@@ -32,10 +32,24 @@ namespace StoreApp.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromForm] ProductDtoForInsertion product) // TODO : Use ProductViewModel
+        public async Task<IActionResult> Create([FromForm] ProductDtoForInsertion product, IFormFile file) 
         {
-            await _manager.ProductService.CreateProduct(product);
-            return RedirectToAction(nameof(Index));
+            if(ModelState.IsValid)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", file.FileName);
+                //File Operations
+                if (file is not null)
+                {
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                        product.ImageUrl = String.Concat("/images/", file.FileName);
+                    }         
+                }
+                await _manager.ProductService.CreateProduct(product);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(product);
         }
         #endregion
 
@@ -48,8 +62,18 @@ namespace StoreApp.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update([FromForm] ProductDtoForUpdate product)
+        public async Task<IActionResult> Update([FromForm] ProductDtoForUpdate product, IFormFile file)
         { 
+            if (file is not null)
+            {
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", file.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                    product.ImageUrl = String.Concat("/images/", file.FileName);
+                }
+            }
+
             await _manager.ProductService.UpdateProduct(product);
             return RedirectToAction(nameof(Index));
           
