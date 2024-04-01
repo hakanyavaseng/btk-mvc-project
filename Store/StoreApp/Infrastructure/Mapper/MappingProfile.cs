@@ -10,6 +10,7 @@ namespace StoreApp.Infrastructure.Mapper
         {
             CreateMap<ProductDtoForInsertion, Product>().ReverseMap();
             CreateMap<ProductDtoForUpdate, Product>().ReverseMap();
+            CreateMap<ProductListIndexDto, Product>().ReverseMap();
         }
     }
 }
