@@ -8,6 +8,7 @@ using Services.Contracts;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<RepositoryContext>(opt =>
 {
@@ -35,6 +36,7 @@ app.UseRouting();
 
 
 
+
 app.UseEndpoints(endpoint =>
 {
 
@@ -47,6 +49,8 @@ app.UseEndpoints(endpoint =>
          name: "default",
          pattern: "{controller=Home}/{action=Index}/{id?}"
     );
+
+    endpoint.MapRazorPages();
 
 });
 
