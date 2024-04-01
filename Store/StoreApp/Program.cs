@@ -16,6 +16,14 @@ builder.Services.AddDbContext<RepositoryContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("StoreApp"));
 });
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "StoreApp.Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
+});
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
@@ -33,9 +41,12 @@ var app = builder.Build();
 
 app.UseStaticFiles(); // Using wwwroot folder for static files
 
+app.UseSession();
+
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
 
 
 
