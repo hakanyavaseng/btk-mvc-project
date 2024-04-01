@@ -60,11 +60,17 @@ namespace Repositories.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
+
+                    b.Property<string>("Summary")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -77,36 +83,46 @@ namespace Repositories.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
+                            ImageUrl = "/images/1.jpg",
                             Name = "Product 1",
-                            Price = 100m
+                            Price = 100m,
+                            Summary = ""
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 2,
+                            ImageUrl = "/images/2.jpg",
                             Name = "Product 2",
-                            Price = 200m
+                            Price = 200m,
+                            Summary = ""
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 1,
+                            ImageUrl = "/images/3.jpg",
                             Name = "Product 3",
-                            Price = 300m
+                            Price = 300m,
+                            Summary = ""
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 2,
+                            ImageUrl = "/images/4.jpg",
                             Name = "Product 4",
-                            Price = 400m
+                            Price = 400m,
+                            Summary = ""
                         },
                         new
                         {
                             Id = 5,
                             CategoryId = 1,
+                            ImageUrl = "/images/5.jpg",
                             Name = "Product 5",
-                            Price = 500m
+                            Price = 500m,
+                            Summary = ""
                         });
                 });
 
