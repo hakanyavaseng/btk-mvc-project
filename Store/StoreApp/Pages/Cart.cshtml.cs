@@ -29,7 +29,7 @@ namespace StoreApp.Pages
             {
                 Cart.AddItem(product, 1);
             }
-            return Page(); // returnUrl
+            return RedirectToPage(new {returnUrl=returnUrl}); // returnUrl
         }
 
         public IActionResult OnPostRemove(int id, string returnUrl)
