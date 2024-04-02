@@ -1,0 +1,60 @@
+﻿@model Order
+@{
+    decimal total = 0;
+    foreach (var line in Model.Lines)
+    {
+        total += line.Product.Price * line.Quantity;
+
+    }
+}
+
+<div class="row shadow my-3">
+    <div class="col-md-3 border-1 border-dark p-3 bg-light shadow">
+        <h5 class="display-5 text-center">
+            <i class="fa fa-address-book text-danger"></i>
+            <br />
+            @Model.Name
+        </h5>
+        <p>@Model.Line1</p>
+        <p>@Model.Line2</p>
+        <p>@Model.Line3</p>
+        <p>@Model.City</p>
+        <p>@Model.OrderedAt.AddHours(3).ToString()</p>
+        <p class="rounded-2 p-3">
+            <span class="bg-warning p-2">
+                Shipped
+            </span>
+            <span class="bg-info p-2">
+                @(Model.Shipped ? "Completed" : "In Progress")
+            </span>
+        </p>
+
+    </div>
+
+    <div class="col-md-9">
+        <h6 class="display-6 mt-3 text-center">Cart</h6>
+        <ul class="list-group">
+            @foreach (var line in Model.Lines)
+            {
+                <li class="list-group-item d-flex justify-content-between brand">
+                    @line.Product.Name
+                    <b>
+                        @line.Quantity * @line.Product.Price.ToString()
+                        = @(line.Quantity * line.Product.Price)
+                    </b>
+                </li>
+            }
+
+            <li class="list-group-item d-flex justify-content-between text-danger">
+                Total <b> @total.ToString()</b>
+            </li>
+        </ul>
+        <div class="text-center mt-2 p-2">
+            <form method="post" asp-action="Complete">
+                <input type="hidden" name="id" value="@Model.OrderId" />
+                <button type="submit" class="btn btn-primary" disabled="@Model.Shipped">Complete</button>
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -40,17 +40,10 @@ namespace Services.Concretes
 
         public async Task<IEnumerable<ProductListIndexDto>> GetAllProductsWithCategory(bool trackChanges)
         {
-            return await repositoryManager.Product.GetAllProducts(trackChanges)
+           IList<Product> products = await repositoryManager.Product.GetAllProducts(trackChanges)
                 .Include(p => p.Category)
-                .Select(p => new ProductListIndexDto
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Price = p.Price,
-                    CategoryName = p.Category.Name,
-                    CategoryId = p.CategoryId
-                })
                 .ToListAsync();
+           return mapper.Map<IEnumerable<ProductListIndexDto>>(products);
         }
 
         public async Task<Product?> GetOneProduct(int productId, bool trackChanges)

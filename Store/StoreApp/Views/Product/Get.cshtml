@@ -16,10 +16,22 @@
                     <i class="fa-solid fa-house"></i>
                     Home
                 </a>
+
+                <form id="@Model.Id" asp-page="/cart" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                    <button type="submit" class="btn btn-outline-primary mx-2">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        Add to Cart
+                    </button>
+                </form>
+
+
                 <a class="btn btn-outline-primary" asp-controller="Product" asp-action="Index">
                     <i class="fa-solid fa-list"></i>
                     Products
                 </a>
+               
             </div>
 
 
