@@ -25,20 +25,17 @@ namespace Services.Concretes
             await repositoryManager.Product.CreateProductAsync(product);
             await repositoryManager.SaveAsync();
         }
-
         public async Task Delete(int id)
         {
             await repositoryManager.Product.DeleteAsync(id);
             await repositoryManager.SaveAsync();
         }
-
         public async Task<IEnumerable<Product>> GetAllProducts(bool trackChanges)
         {
             return await repositoryManager.Product.GetAllProducts(trackChanges)
             .OrderBy(p => p.Id)
             .ToListAsync();
         }
-
         public async Task<IEnumerable<ProductListIndexDto>> GetAllProductsWithCategory(bool trackChanges)
         {
            IList<Product> products = await repositoryManager.Product.GetAllProducts(trackChanges)
@@ -46,7 +43,6 @@ namespace Services.Concretes
                 .ToListAsync();
            return mapper.Map<IEnumerable<ProductListIndexDto>>(products);
         }
-
         public async Task<IEnumerable<Product>> GetLatestProducts(int count, bool trackChanges)
         {
             return await repositoryManager.Product.FindAll(trackChanges)
@@ -54,7 +50,6 @@ namespace Services.Concretes
                 .Take(count)
                 .ToListAsync();
         }
-
         public async Task<Product?> GetOneProduct(int productId, bool trackChanges)
         {
             var product = await repositoryManager.Product.GetOneProduct(productId, trackChanges);
@@ -62,7 +57,6 @@ namespace Services.Concretes
                 throw new Exception("Product not found");
             return product;
         }
-
         public async Task<ProductDtoForUpdate> GetOneProductForUpdateAsync(int id, bool trackChanges)
         {
             var product = await repositoryManager.Product.GetOneProduct(id, trackChanges);
@@ -70,15 +64,12 @@ namespace Services.Concretes
                 throw new Exception("Product not found");
             return mapper.Map<ProductDtoForUpdate>(product);
         }
-
         public Task<int> GetProductCount() => repositoryManager.Product.GetCount(p => p.Id > 0);
-
         public IEnumerable<Product> GetProductsWithDetails(ProductRequestParameters parameters)
         {
             return repositoryManager.Product.GetProductsWithDetails(parameters).ToList();
             
         }
-
         public async Task<IEnumerable<Product>> GetShowCaseProducts(bool trackChanges) 
             => await repositoryManager.Product
             .GetShowCaseProducts(trackChanges)
@@ -92,7 +83,5 @@ namespace Services.Concretes
             await repositoryManager.Product.UpdateProductAsync(product);
             await repositoryManager.SaveAsync();
         }
-
- 
     }
 }
