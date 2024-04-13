@@ -35,5 +35,5 @@ app.UseEndpoints(endpoint =>
 
 });
 
-
+app.ConfigureLocalization();
 app.Run();
