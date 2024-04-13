@@ -5,10 +5,14 @@ using Services.Contracts;
 
 namespace StoreApp.Infrastructure.TagHelpers
 {
+
     [HtmlTargetElement("div", Attributes = "products")]
     public class LatestProductTagHelper : TagHelper
     {
         private readonly IServiceManager serviceManager;
+
+        [HtmlAttributeName("number")]
+        public int Number { get; set; }
 
         public LatestProductTagHelper(IServiceManager serviceManager)
         {
@@ -30,7 +34,7 @@ namespace StoreApp.Infrastructure.TagHelpers
             h6.InnerHtml.Append(" Latest Products");
 
             TagBuilder ul = new TagBuilder("ul");
-            var products = await serviceManager.ProductService.GetLatestProducts(5, false);
+            var products = await serviceManager.ProductService.GetLatestProducts(Number, false);
             foreach (Product product in products)
             {
                 TagBuilder li = new TagBuilder("li");
