@@ -22,7 +22,9 @@ namespace Repositories.Concretes
         public IQueryable<Product> GetProductsWithDetails(ProductRequestParameters parameters)
         => _repositoryContext
             .Products
-            .FilteredByCategoryId(parameters.CategoryId);
+            .FilteredByCategoryId(parameters.CategoryId)
+            .Search(parameters.SearchTerm);
+            
         public IQueryable<Product> GetShowCaseProducts(bool trackChanges) => FindAll(trackChanges).Where(p => p.ShowCase);
         public Task UpdateProductAsync(Product product) => UpdateAsync(product);
        
