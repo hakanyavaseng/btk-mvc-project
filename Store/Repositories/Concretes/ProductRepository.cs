@@ -2,10 +2,11 @@ using Entities.Models;
 using Entities.RequestParameters;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
+using Repositories.Extensions;
 
 namespace Repositories.Concretes
 {
-    public class ProductRepository : RepositoryBase<Product>, IProductRepository
+    public sealed class ProductRepository : RepositoryBase<Product>, IProductRepository
     {
         public ProductRepository(RepositoryContext repositoryContext) : base(repositoryContext)
         {
@@ -19,16 +20,9 @@ namespace Repositories.Concretes
         }
 
         public IQueryable<Product> GetProductsWithDetails(ProductRequestParameters parameters)
-        => parameters.CategoryId is null 
-                ? _repositoryContext
-                    .Products
-                    .Include(p => p.Category)
-                : _repositoryContext
-                        .Products
-                        .Include(p => p.Category)
-                        .Where(p => p.CategoryId.Equals(parameters.CategoryId));
-
-
+        => _repositoryContext
+            .Products
+            .FilteredByCategoryId(parameters.CategoryId);
         public IQueryable<Product> GetShowCaseProducts(bool trackChanges) => FindAll(trackChanges).Where(p => p.ShowCase);
         public Task UpdateProductAsync(Product product) => UpdateAsync(product);
        
