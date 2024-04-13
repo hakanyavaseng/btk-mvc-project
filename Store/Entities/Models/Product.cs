@@ -9,5 +9,6 @@ namespace Entities.Models
         public string? ImageUrl { get; set; } = String.Empty;
         public int CategoryId { get; set; }
         public Category Category { get; set; } 
+        public bool ShowCase { get; set; }
     }
 }

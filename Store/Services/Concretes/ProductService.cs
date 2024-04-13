@@ -64,6 +64,10 @@ namespace Services.Concretes
 
         public Task<int> GetProductCount() => repositoryManager.Product.GetCount(p => p.Id > 0);
 
+        public async Task<IEnumerable<Product>> GetShowCaseProducts(bool trackChanges) 
+            => await repositoryManager.Product
+            .GetShowCaseProducts(trackChanges)
+            .ToListAsync();
         public async Task UpdateProduct(ProductDtoForUpdate productDto)
         {
             var product = await repositoryManager.Product.GetOneProduct(productDto.Id, false);
@@ -73,5 +77,7 @@ namespace Services.Concretes
             await repositoryManager.Product.UpdateProductAsync(product);
             await repositoryManager.SaveAsync();
         }
+
+ 
     }
 }

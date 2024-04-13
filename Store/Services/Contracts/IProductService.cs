@@ -13,6 +13,7 @@ namespace Services.Contracts
         Task Delete(int id);
         Task<ProductDtoForUpdate> GetOneProductForUpdateAsync(int id, bool trackChanges);
         Task<IEnumerable<ProductListIndexDto>> GetAllProductsWithCategory(bool trackChanges);
+        Task<IEnumerable<Product>> GetShowCaseProducts(bool trackChanges);
     }
 
 }
