@@ -1,3 +1,4 @@
+using Entities.RequestParameters;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 
@@ -12,9 +13,9 @@ namespace StoreApp.Controllers
             serviceManager = manager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(ProductRequestParameters parameters)
         {
-            return View(await serviceManager.ProductService.GetAllProducts(false));
+            return View(serviceManager.ProductService.GetProductsWithDetails(parameters));
         }
 
         public async Task<IActionResult> Get([FromRoute(Name ="id")] int id)

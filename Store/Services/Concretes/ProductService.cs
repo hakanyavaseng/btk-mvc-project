@@ -1,6 +1,7 @@
 using AutoMapper;
 using Entities.DTOs.Product;
 using Entities.Models;
+using Entities.RequestParameters;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
 using Services.Contracts;
@@ -63,6 +64,12 @@ namespace Services.Concretes
         }
 
         public Task<int> GetProductCount() => repositoryManager.Product.GetCount(p => p.Id > 0);
+
+        public IEnumerable<Product> GetProductsWithDetails(ProductRequestParameters parameters)
+        {
+            return repositoryManager.Product.GetProductsWithDetails(parameters).ToList();
+            
+        }
 
         public async Task<IEnumerable<Product>> GetShowCaseProducts(bool trackChanges) 
             => await repositoryManager.Product
