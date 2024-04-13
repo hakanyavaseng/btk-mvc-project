@@ -8,7 +8,7 @@ namespace Services.Contracts
     {
         Task<IEnumerable<Product>> GetAllProducts(bool trackChanges);
         IEnumerable<Product> GetProductsWithDetails(ProductRequestParameters parameters);
-
+        Task<IEnumerable<Product>> GetLatestProducts(int count, bool trackChanges);
         Task<Product?> GetOneProduct(int productId, bool trackChanges);
         Task<int> GetProductCount();
         Task CreateProduct(ProductDtoForInsertion productDto);
