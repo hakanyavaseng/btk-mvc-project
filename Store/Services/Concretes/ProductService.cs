@@ -47,6 +47,14 @@ namespace Services.Concretes
            return mapper.Map<IEnumerable<ProductListIndexDto>>(products);
         }
 
+        public async Task<IEnumerable<Product>> GetLatestProducts(int count, bool trackChanges)
+        {
+            return await repositoryManager.Product.FindAll(trackChanges)
+                .OrderByDescending(p => p.Id)
+                .Take(count)
+                .ToListAsync();
+        }
+
         public async Task<Product?> GetOneProduct(int productId, bool trackChanges)
         {
             var product = await repositoryManager.Product.GetOneProduct(productId, trackChanges);
