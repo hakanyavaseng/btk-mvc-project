@@ -18,5 +18,13 @@ namespace Repositories.Extensions
             else
                 return products.Where(p => p.Name.ToLower().Contains(searchTerm.ToLower()));
         }
+
+        public static IQueryable<Product> FilteredByPrice(this IQueryable<Product> products, decimal? minPrice, decimal? maxPrice, bool validPriceRange)
+        {
+            if (validPriceRange)
+                return products.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
+            else
+                return products;
+        }
     }
 }

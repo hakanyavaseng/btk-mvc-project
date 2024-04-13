@@ -23,7 +23,8 @@ namespace Repositories.Concretes
         => _repositoryContext
             .Products
             .FilteredByCategoryId(parameters.CategoryId)
-            .Search(parameters.SearchTerm);
+            .Search(parameters.SearchTerm)
+            .FilteredByPrice(parameters.MinPrice, parameters.MaxPrice, parameters.ValidPriceRange);
             
         public IQueryable<Product> GetShowCaseProducts(bool trackChanges) => FindAll(trackChanges).Where(p => p.ShowCase);
         public Task UpdateProductAsync(Product product) => UpdateAsync(product);
