@@ -71,7 +71,7 @@ namespace StoreApp.Controllers
                     return View(model);
                 }
 
-                IdentityUser user = new IdentityUser()
+                IdentityUser user = new()
                 {
                     UserName = model.UserName,
                     Email = model.Email
