@@ -9,6 +9,7 @@ builder.Services.ConfigureDbContext(builder.Configuration);
 builder.Services.ConfigureIdentity();
 
 builder.Services.ConfigureSession();
+builder.Services.ConfigureApplicationCookie();
 
 builder.Services.ConfigureRepositoryRegistration();
 builder.Services.ConfigureServiceRegistration();

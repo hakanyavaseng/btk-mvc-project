@@ -38,6 +38,11 @@ namespace StoreApp.Controllers
            
         }
 
+        [HttpGet]
+        public IActionResult AccessDenied([FromQuery(Name ="ReturnUrl")] string returnUrl)
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
