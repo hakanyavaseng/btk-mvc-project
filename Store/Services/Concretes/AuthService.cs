@@ -85,5 +85,11 @@ namespace Services.Concretes
         {
             return await _userManager.DeleteAsync(await GetOneUser(userName));
         }
+
+        public async Task<IEnumerable<IdentityUser>> GetAllUsers()
+        {
+            return await _userManager.Users.ToListAsync();
+
+        }
     }
 }

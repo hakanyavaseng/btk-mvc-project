@@ -2,7 +2,7 @@ using StoreApp.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
+//builder.Services.AddControllers().AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -47,7 +47,7 @@ app.UseEndpoints(endpoint =>
 
     endpoint.MapRazorPages();
 
-    endpoint.MapControllers();
+   // endpoint.MapControllers();
 
 });
 
