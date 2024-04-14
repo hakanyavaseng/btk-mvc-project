@@ -1,2 +1,9 @@
+<div class="text-center my-5 border-bottom">
+    <div class="display-6">Dashboard</div>
+</div>
 
-    <h3>Dashboard Index</h3>
+<div class="my-5">
+    <partial name="_Cards" />
+</div>
+
+@await Component.InvokeAsync("ShowCase", new {page="list"})
