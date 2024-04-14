@@ -69,5 +69,17 @@ namespace Services.Concretes
             }
             throw new Exception("Update user operation failed!");
         }
+        public async Task<IdentityResult> ResetPassword(ResetPasswordDto dto)
+        {
+            IdentityUser user = await GetOneUser(dto.UserName);
+            
+            if(user!=null)
+            {
+                await _userManager.RemovePasswordAsync(user);
+                return await _userManager.AddPasswordAsync(user, dto.Password);
+            }       
+            else
+                return IdentityResult.Failed(new IdentityError { Description = "User not found!" });
+        }
     }
 }

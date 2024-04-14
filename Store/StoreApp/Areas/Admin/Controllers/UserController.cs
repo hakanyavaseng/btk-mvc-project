@@ -37,6 +37,12 @@ namespace StoreApp.Areas.Admin.Controllers
             return View(user);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ResetPassword([FromRoute(Name = "id")] string id)
+        {
+            return View(new ResetPasswordDto() { UserName = id });
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(UserDtoForCreation userDto)
@@ -68,6 +74,26 @@ namespace StoreApp.Areas.Admin.Controllers
             return View(userDto);
         }
 
-          
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ResetPasswordDto resetPasswordDto)
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityResult result = await _serviceManager.AuthService.ResetPassword(resetPasswordDto);
+                if (result.Succeeded)
+                    return RedirectToAction("Index");
+                else
+                {
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+            }
+            return View(resetPasswordDto);
+
+        }
+
+
     }
 }
