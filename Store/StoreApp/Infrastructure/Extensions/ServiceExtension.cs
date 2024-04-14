@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Repositories.Concretes;
@@ -16,7 +17,27 @@ namespace StoreApp.Infrastructure.Extensions
             services.AddDbContext<RepositoryContext>(opt =>
             {
                 opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("StoreApp"));
+                opt.EnableSensitiveDataLogging(); // TODO Just for development, remove this in production
             });
+        }
+
+        //Identity configuration
+        public static void ConfigureIdentity(this IServiceCollection services)
+        {
+            services.AddIdentity<IdentityUser, IdentityRole>(opt =>
+            {
+                opt.SignIn.RequireConfirmedEmail = false; // Development only
+              
+                opt.User.RequireUniqueEmail = true;
+                
+                opt.Password.RequireDigit = false;
+                opt.Password.RequiredLength = 6;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireLowercase = false;
+            }).AddEntityFrameworkStores<RepositoryContext>();
+
         }
         public static void ConfigureSession(this IServiceCollection services)
         {
