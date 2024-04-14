@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Entities.DTOs.Account;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Services.Contracts;
 
 namespace Services.Concretes
@@ -20,10 +22,21 @@ namespace Services.Concretes
 
         public IEnumerable<IdentityRole> Roles
             => _roleManager.Roles;
-
         public IEnumerable<IdentityUser> Users
             => _userManager.Users;
-
+        public async Task<IdentityUser> GetOneUser(string userName) => await _userManager.FindByNameAsync(userName);
+        public async Task<UserDtoForUpdate> GetOneUserForUpdate(string userName)
+        {
+            var user = await GetOneUser(userName);
+            if (user != null)
+            {
+                var userDto = _mapper.Map<UserDtoForUpdate>(user);
+                userDto.Roles = new HashSet<string>(Roles.Select(r => r.Name).ToList());
+                userDto.UserRoles = new HashSet<string>(await _userManager.GetRolesAsync(user));
+                return userDto;
+            }
+            throw new Exception("Getting one user for update operation failed!");
+        }
         public async Task<IdentityResult> CreateUser(UserDtoForCreation userDto)
         {
             var user = _mapper.Map<IdentityUser>(userDto);
@@ -39,6 +52,22 @@ namespace Services.Concretes
                     throw new Exception("Error occured during adding roles to user!");
             }
             return result;
+        }
+        public async Task Update(UserDtoForUpdate userDto)
+        {
+            IdentityUser userToUpdate = await GetOneUser(userDto.UserName);
+            if (userToUpdate == null)
+                throw new Exception("User not found!");
+            await _userManager.UpdateAsync(_mapper.Map(userDto, userToUpdate));      
+            
+            if(userDto.Roles.Any())
+            {
+                var userRoles = await _userManager.GetRolesAsync(userToUpdate);
+                await _userManager.RemoveFromRolesAsync(userToUpdate, userRoles); // Remove all roles
+                await _userManager.AddToRolesAsync(userToUpdate, userDto.Roles); // Add new roles according to userDto
+                return;
+            }
+            throw new Exception("Update user operation failed!");
         }
     }
 }
