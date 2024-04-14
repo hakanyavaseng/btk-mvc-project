@@ -81,5 +81,9 @@ namespace Services.Concretes
             else
                 return IdentityResult.Failed(new IdentityError { Description = "User not found!" });
         }
+        public async Task<IdentityResult> DeleteOneUser(string userName)
+        {
+            return await _userManager.DeleteAsync(await GetOneUser(userName));
+        }
     }
 }
