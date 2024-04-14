@@ -6,10 +6,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureIdentity();
+
 builder.Services.ConfigureSession();
+builder.Services.ConfigureApplicationCookie();
+
 builder.Services.ConfigureRepositoryRegistration();
 builder.Services.ConfigureServiceRegistration();
+
 builder.Services.ConfigureRouting();
+
 
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -18,7 +24,12 @@ var app = builder.Build();
 app.UseStaticFiles(); // Using wwwroot folder for static files
 app.UseSession();
 app.UseHttpsRedirection();
+
 app.UseRouting();
+//These middlewares must be in this order and before UseEndpoints after UseRouting
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseEndpoints(endpoint =>
 {
 
@@ -37,4 +48,6 @@ app.UseEndpoints(endpoint =>
 });
 
 app.ConfigureLocalization();
+app.ConfigureDefaultAdminUser();
+
 app.Run();

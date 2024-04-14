@@ -1,0 +1,31 @@
+﻿@model IEnumerable<IdentityRole>
+
+<div class="text-center">
+    <div class="display-6">Roles</div>
+</div>
+<div class="row">
+
+    <div class="col-3">
+    </div> 
+    <div class="col-6">
+        <ul class="list-group">
+            @foreach (var role in Model)
+            {
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <div>@role.Name</div>
+                        <div>
+                            <a asp-action="Edit" asp-route-id="@role.Id" class="btn btn-primary btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@role.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+
+
+
