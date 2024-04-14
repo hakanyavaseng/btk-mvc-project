@@ -19,10 +19,16 @@ builder.Services.ConfigureRouting();
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
+
 app.UseStaticFiles(); // Using wwwroot folder for static files
 app.UseSession();
 app.UseHttpsRedirection();
+
 app.UseRouting();
+//These middlewares must be in this order and before UseEndpoints after UseRouting
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseEndpoints(endpoint =>
 {
 
