@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Entities.DTOs.Account;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StoreApp.Models;
 
@@ -29,6 +30,15 @@ namespace StoreApp.Controllers
             await _signInManager.SignOutAsync();
             return Redirect(ReturnUrl);
         }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+           
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
@@ -49,7 +59,41 @@ namespace StoreApp.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterDto model)
+        {
+            if(ModelState.IsValid)
+            {
+                if(!(model.Password.Equals(model.PasswordConfirm)))
+                {
+                    ModelState.AddModelError("Error", "Passwords do not match");
+                    return View(model);
+                }
 
+                IdentityUser user = new IdentityUser()
+                {
+                    UserName = model.UserName,
+                    Email = model.Email
+                };
 
+                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+                if(result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "User");  
+                    return RedirectToAction("Login", "Account", new { ReturnUrl = "/"});
+                }
+                else
+                {
+                    foreach(IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("Error", error.Description);
+                    }
+                    return View(model);
+                }
+            } 
+            else
+                return View(model);
+        }
     }
 }
