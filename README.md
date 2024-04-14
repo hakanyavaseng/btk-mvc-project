@@ -1,6 +1,6 @@
 # :information_source: MVC E-Commercial Website Project with ASP.NET Core
 This repository contains the steps of developing E-Commercial Website Project with ASP.NET Core <br/>
-I followed <b><a href="https://www.btkakademi.gov.tr/portal/course/asp-net-core-mvc-25318">ASP.NET Core MVC</a></b> tutorial by @zcomert while developing this project.
+I followed <b><a href="https://www.btkakademi.gov.tr/portal/course/asp-net-core-mvc-25318">ASP.NET Core MVC</a></b> tutorial taught by Zafer Cömert on BTK Akademi while developing this project.
 
 ## :computer:	Technologies
 
