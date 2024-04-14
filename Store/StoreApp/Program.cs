@@ -19,7 +19,6 @@ builder.Services.ConfigureRouting();
 builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
-
 app.UseStaticFiles(); // Using wwwroot folder for static files
 app.UseSession();
 app.UseHttpsRedirection();
@@ -42,4 +41,6 @@ app.UseEndpoints(endpoint =>
 });
 
 app.ConfigureLocalization();
+app.ConfigureDefaultAdminUser();
+
 app.Run();

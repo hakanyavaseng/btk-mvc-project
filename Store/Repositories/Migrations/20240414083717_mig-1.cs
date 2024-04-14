@@ -239,6 +239,16 @@ namespace Repositories.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "1104e900-8900-4309-be9f-d9c370cc0c7c", "529d1119-7124-4e4e-8e9e-78905c58ed11", "User", "USER" },
+                    { "5f1c0002-35ce-46a4-a0a7-5cca41db6eae", "a73fcc4e-df7d-479e-b3c7-765fc21a0e81", "Admin", "ADMIN" },
+                    { "b71ec255-84b8-461e-bbb7-ee3c34d4cde1", "f1183ab6-23ff-407a-8763-433de2b8c2df", "Editor", "EDITOR" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]

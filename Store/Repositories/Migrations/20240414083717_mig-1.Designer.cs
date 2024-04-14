@@ -12,7 +12,7 @@ using Repositories;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20240414082722_mig-1")]
+    [Migration("20240414083717_mig-1")]
     partial class mig1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -225,6 +225,29 @@ namespace Repositories.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5f1c0002-35ce-46a4-a0a7-5cca41db6eae",
+                            ConcurrencyStamp = "a73fcc4e-df7d-479e-b3c7-765fc21a0e81",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "b71ec255-84b8-461e-bbb7-ee3c34d4cde1",
+                            ConcurrencyStamp = "f1183ab6-23ff-407a-8763-433de2b8c2df",
+                            Name = "Editor",
+                            NormalizedName = "EDITOR"
+                        },
+                        new
+                        {
+                            Id = "1104e900-8900-4309-be9f-d9c370cc0c7c",
+                            ConcurrencyStamp = "529d1119-7124-4e4e-8e9e-78905c58ed11",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
